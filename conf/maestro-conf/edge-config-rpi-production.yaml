@@ -369,6 +369,23 @@ jobs:
           "hideTemplates": [ "VideoCamera" ],
           "logLevel": 1
         }
+   - job: "bluetoothlowenergy"
+     immutable: true  # don't store in DB
+     exec_cmd: "${thisdir}/../bluetoothlowenergy"
+     container_template: "deviceJS_process"
+     composite_id: "ble"
+     restart: true
+     restart_limit: 5000
+     restart_pause: 90
+     config: |
+        {
+          "hciDeviceID": 1,
+          "version": "1.0.2",
+          "logLevel": 5,
+          "activityLength": 100,
+          "platform":"",
+          "serialNumber": "{{ARCH_SERIAL_NUMBER}}"
+        }
    - job: "zigbeeHA"
      immutable: true  # don't store in DB
      exec_cmd: "${thisdir}/../zigbeeHA"
